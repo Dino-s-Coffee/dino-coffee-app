@@ -1,0 +1,7 @@
+{
+  "name": "dino-coffee",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
