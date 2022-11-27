@@ -33,7 +33,7 @@ setupIonicReact({
 });
 
 const App: React.FC = () => {
-  const [login, setLogin] = useState<boolean>(false);
+  const [login, setLogin] = useState<boolean>(true);
   return (
     <IonApp>
       {

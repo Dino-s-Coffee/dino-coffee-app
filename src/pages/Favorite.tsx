@@ -1,5 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/react';
-import { heartOutline } from 'ionicons/icons';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonText } from '@ionic/react';
 import styles from './Favorite.module.css';
 
 const Favorite: React.FC = () => {
@@ -11,10 +10,18 @@ const Favorite: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonButton color="light" expand="block">
-          Cappuchino
-          <IonIcon color="red" slot="end" icon={heartOutline}></IonIcon>
-        </IonButton>
+        <IonText color="dark" className={styles.center}>
+          No favorites yet
+        </IonText>
+        <IonText color="dark" className={styles.instruction}>
+          Hit the blue button
+          down below to Create an order
+        </IonText>
+        <div className={styles.buttonWrapper}>
+          <IonButton className={styles.button}>
+            Start ordering
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
