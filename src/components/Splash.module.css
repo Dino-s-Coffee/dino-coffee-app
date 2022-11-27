@@ -1,0 +1,41 @@
+.container {
+    flex: 1;
+    align-items: 'center';
+    background-color: '#DFB35A';
+    display: 'flex';
+    justify-content: 'space-around';
+    height: '100%';
+    width: '100%';
+}
+
+.brand {
+    margin-top: 50;
+    font-family: 'Lustria';
+    font-size: 60;
+    color: '#fff';
+    text-align: 'center';
+}
+
+.logo {
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'space-around';
+}
+
+.button {
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+    background-color: '#fff';
+    border-radius: 10;
+    width: 280;
+    height: 60;
+    margin-bottom: 50;
+    margin-top: 50;
+}
+
+.buttonText {
+    font-size: 20;
+    font-family: 'Raleway';
+    font-weight: 'bold';
+}

@@ -1,6 +1,15 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Profile.css';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/react';
+import { chevronForwardOutline} from 'ionicons/icons'
+import styles from './Home.module.css';
+
+const Info: React.FC = () => {
+  return (
+    <IonContent>
+      <h1> Avatar </h1>
+      <h2> Money </h2>
+    </IonContent>
+  )
+}
 
 const Profile: React.FC = () => {
   return (
@@ -11,12 +20,13 @@ const Profile: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Profile</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Profile page" />
+        <IonContent className='title'>Profile</IonContent>
+        {/* <Info/> */}
+        <IonButton className='profile-button'>
+          <IonContent className='ct'>Edit Profile</IonContent>
+          <IonIcon icon={chevronForwardOutline}></IonIcon>
+        </IonButton>
+        <IonButton>Order History</IonButton>
       </IonContent>
     </IonPage>
   );

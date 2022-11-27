@@ -2,6 +2,7 @@ import {
   IonApp,
   setupIonicReact
 } from '@ionic/react';
+import { useState } from 'react';
 
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -24,18 +25,28 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Navbar from './components/Navbar';
+import Splash from './components/Splash';
 
 setupIonicReact({
   // rippleEffect: false,
   // mode: 'md',
 });
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <Navbar />
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const [login, setLogin] = useState<boolean>(false);
+  return (
+    <IonApp>
+      {
+        login ? (
+          <IonReactRouter>
+            <Navbar />
+          </IonReactRouter>
+        ) : (
+          <Splash />
+        )
+      }
+    </IonApp>
+  );
+}
 
 export default App;

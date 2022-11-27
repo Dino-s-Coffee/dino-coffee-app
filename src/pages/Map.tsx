@@ -1,12 +1,13 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import styles from './Cart.module.css';
 
-const Cart: React.FC = () => {
+import styles from './Map.module.css';
+
+const Map: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Cart</IonTitle>
+          <IonTitle>Map</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -16,4 +17,4 @@ const Cart: React.FC = () => {
   );
 };
 
-export default Cart;
+export default Map;
