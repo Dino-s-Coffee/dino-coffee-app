@@ -25,8 +25,8 @@ const Splash: React.FC<{ setLogin: (type:boolean) => void }> = ({ setLogin }) =>
         <div className={styles.container}>
           <p className={styles.brand}> {`DINO'S\nCOFFEE`} </p>
           <div className={styles.logo}>
-            <img src='/assets/imgs/logo.png' />
-            <img src='/assets/imgs/logoShadow.png' />
+            <img alt='log' src='/assets/imgs/logo.png' />
+            <img alt='shadow' src='/assets/imgs/logoShadow.png' />
           </div>
           <IonButton id="open-modal" expand="block" size="large" color="light">
             Get started

@@ -23,7 +23,7 @@
     height: 80%;
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: flex-end;
 }
 .button {
     --background: #58C0EA;
