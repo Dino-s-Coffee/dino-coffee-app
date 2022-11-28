@@ -33,7 +33,7 @@ setupIonicReact({
 });
 
 const App: React.FC = () => {
-  const [login, setLogin] = useState<boolean>(true);
+  const [login, setLogin] = useState<boolean>(false);
   return (
     <IonApp>
       {
@@ -42,7 +42,7 @@ const App: React.FC = () => {
             <Navbar />
           </IonReactRouter>
         ) : (
-          <Splash />
+          <Splash setLogin={setLogin}/>
         )
       }
     </IonApp>
