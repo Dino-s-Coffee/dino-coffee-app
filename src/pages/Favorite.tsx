@@ -1,5 +1,32 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonText } from '@ionic/react';
-import styles from './Favorite.module.css';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react';
+
+import { useAppSelector } from '../app/hooks';
+import { selectFavorite } from '../features/favorite/favoriteSlice';
+import ProductCard from '../components/ProductCard';
+
+const Content: React.FC = () => {
+  const favorite = useAppSelector(selectFavorite);
+  if (favorite.products.length === 0) {
+    return (
+      <p>No favorite product</p>
+    )
+  }
+  return (
+    <>
+      {favorite.products.map((product, index) => {
+        return (
+          <ProductCard key={index} product={product} />
+        )
+      })}
+    </>
+  )
+}
 
 const Favorite: React.FC = () => {
   return (
@@ -9,19 +36,8 @@ const Favorite: React.FC = () => {
           <IonTitle>Favorite</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonText color="dark" className={styles.center}>
-          No favorites yet
-        </IonText>
-        <IonText color="dark" className={styles.instruction}>
-          Hit the blue button
-          down below to Create an order
-        </IonText>
-        <div className={styles.buttonWrapper}>
-          <IonButton className={styles.button}>
-            Start ordering
-          </IonButton>
-        </div>
+      <IonContent >
+        <Content />
       </IonContent>
     </IonPage>
   );

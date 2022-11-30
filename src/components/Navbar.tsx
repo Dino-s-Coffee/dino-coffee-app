@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { IonReactRouter } from '@ionic/react-router';
 import {
   IonIcon,
   IonLabel,
@@ -13,9 +14,7 @@ import {
   heartOutline,
   cartOutline,
   mapOutline,
-  personOutline
-} from 'ionicons/icons';
-import {
+  personOutline,
   home as homeFill,
   heart as heartFill,
   cart as cartFill,
@@ -28,12 +27,7 @@ import Favorite from '../pages/Favorite';
 import Map from '../pages/Map';
 import Cart from '../pages/Cart';
 import Profile from '../pages/Profile';
-import ProductDetail from '../pages/product/Detail';
-import { capitalizeOf } from '../utils';
-// import styles from './Navbar.module.css';
-type TabProps = {
-  name: string, iconOutline: string, iconFill: string, component: React.FC
-}
+import ProductDetail from '../pages/Product/Detail';
 
 function Tab(name: string, iconOutline: string, iconFill: string, component: React.FC) {
   return {
@@ -44,35 +38,38 @@ function Tab(name: string, iconOutline: string, iconFill: string, component: Rea
   }
 }
 
+const tabs: any[] = [
+  Tab('Home', homeOutline, homeFill, Home),
+  Tab('Favorite', heartOutline, heartFill, Favorite),
+  Tab('Map', mapOutline, mapFill, Map),
+  Tab('Cart', cartOutline, cartFill, Cart),
+  Tab('Profile', personOutline, personFill, Profile),
+];
+
+
 const Navbar: React.FC = () => {
   const [selectedTab, setSelectedTab] = useState<string>('home');
-
-  const tabs: TabProps[] = [
-    Tab('home', homeOutline, homeFill, Home),
-    Tab('favorite', heartOutline, heartFill, Favorite),
-    Tab('map', mapOutline, mapFill, Map),
-    Tab('cart', cartOutline, cartFill, Cart),
-    Tab('profile', personOutline, personFill, Profile),
-  ];
   return (
-    <IonTabs onIonTabsDidChange={(e) => setSelectedTab(e.detail.tab)}>
-      <IonRouterOutlet>
-        <Route path="/product/:id" component={ProductDetail} />
-        {tabs.map((tab) => (
-          <Route key={tab.name} path={`/${tab.name}`} component={tab.component} exact={true} />
-        ))}
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
+    <IonReactRouter>
+      <IonTabs onIonTabsDidChange={(e) => setSelectedTab(e.detail.tab)}>
+        <IonRouterOutlet>
+          {tabs.map((tab) => (
+            <Route key={tab.name} path={`/${tab.name.toLowerCase()}`} component={tab.component} exact={true} />
+          ))}
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          <Route path="/product/detail/:id" component={ProductDetail} />
+        </IonRouterOutlet>
 
-      <IonTabBar slot="bottom">
-        {tabs.map((tab) => (
-          <IonTabButton tab={tab.name} key={tab.name} href={`/${tab.name}`}>
-            <IonIcon icon={selectedTab === tab.name ? tab.iconFill : tab.iconOutline} />
-            {selectedTab === tab.name ? <IonLabel>{capitalizeOf(tab.name)}</IonLabel> : null}
-          </IonTabButton>
-        ))}
-      </IonTabBar>
-    </IonTabs>
+        <IonTabBar slot="bottom">
+          {tabs.map((tab) => (
+            <IonTabButton tab={tab.name} key={tab.name} href={`/${tab.name.toLowerCase()}`}>
+              <IonIcon icon={selectedTab === tab.name ? tab.iconFill : tab.iconOutline} />
+              {selectedTab === tab.name && <IonLabel>{tab.name}</IonLabel>}
+            </IonTabButton>
+          ))}
+        </IonTabBar>
+      </IonTabs>
+    </IonReactRouter>
   );
 }
 

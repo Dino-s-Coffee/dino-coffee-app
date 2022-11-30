@@ -1,18 +1,52 @@
-import { IonContent, IonPage, IonButton } from '@ionic/react';
-// import styles from './Cart.module.css';
-
-// import Item from '../components/Item';
+import {
+  IonContent,
+  IonPage,
+  IonButton,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonFooter,
+  IonText,
+  IonIcon
+} from '@ionic/react';
+import { chevronForwardOutline } from 'ionicons/icons'
+import {
+  addProduct,
+  removeProduct,
+  selectCart,
+} from '../features/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import ProductCard from '../components/ProductCard';
 
 const Cart: React.FC = () => {
+  const cart = useAppSelector(selectCart);
   return (
     <IonPage>
-      <IonContent fullscreen>
-        {/* <Item src='/assets/imgs/capuchino.png' title='Capuchino' price='10.000 VND' content='Ca phe capuchino ngon'></Item>
-        <Item src='/assets/imgs/expresso.png' title='Expresso' price='20.000 VND' content='Ca phe expresso sieu ngon'></Item> */}
-        <p>{`Total Price: 30.000 VND`}</p>
-        <p>{`Shipping Fee: 5.000 VND`}</p>
-        <IonButton>Check out</IonButton>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Detail Order</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent >
+        {
+          cart.items.map((item, index) => {
+            return (
+              <ProductCard
+                key={index}
+                product={item.product}
+              // quantity={item.quantity}
+              />
+            )
+          })
+        }
+        
       </IonContent>
+      <IonFooter>
+        <IonToolbar>
+          <IonText className='ion-margin-start' slot='start'>{`Total Price: ${cart.total}`}</IonText>
+          <IonButton slot='end'>Check out<IonIcon icon={chevronForwardOutline}/></IonButton>
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   );
 };

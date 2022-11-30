@@ -1,16 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonIcon } from '@ionic/react';
-import { chevronForwardOutline } from 'ionicons/icons'
-// import styles from './Home.module.css';
-
-// const Info: React.FC = () => {
-//   return (
-//     <IonContent>
-//       <h1> Avatar </h1>
-//       <h2> Money </h2>
-//     </IonContent>
-//   )
-// }
-
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem } from '@ionic/react';
 
 const Profile: React.FC = () => {
   const configs = [
@@ -27,14 +15,15 @@ const Profile: React.FC = () => {
           <IonTitle>Profile</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent >
         {
           configs.map((config, index) => {
             return (
-              <IonButton expand='full' key={index} color='secondary'>
-                <IonIcon icon={chevronForwardOutline} slot='end' />
-                {config}
-              </IonButton>
+              // <IonButton>
+                <IonItem button detail>
+                  {config}
+                </IonItem>
+              // </IonButton>
             )
           })
         }

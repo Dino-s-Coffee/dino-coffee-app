@@ -6,22 +6,31 @@ import {
   IonItem,
   IonLabel,
   IonInput,
-  IonNote
+  IonNote,
+  IonIcon,
 } from '@ionic/react';
+import { logoFacebook, logoGoogle } from 'ionicons/icons';
 import { useRef } from 'react';
-
 import styles from './Splash.module.css';
+import { login } from '../features/user/userSlice'
+import { useAppDispatch } from '../app/hooks';
 
-
-const Splash: React.FC<{ setLogin: (type:boolean) => void }> = ({ setLogin }) => {
+const Splash: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null);
+  const dispatch = useAppDispatch();
   function onPress() {
-    setLogin(true);
+    dispatch(login({
+      id: '1',
+      name: 'admin',
+      email: 'admin@dino.com',
+      token: 'abc',
+      isLoggedIn: true,
+    }))
     modal.current?.dismiss();
   }
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent >
         <div className={styles.container}>
           <p className={styles.brand}> {`DINO'S\nCOFFEE`} </p>
           <div className={styles.logo}>
@@ -40,7 +49,7 @@ const Splash: React.FC<{ setLogin: (type:boolean) => void }> = ({ setLogin }) =>
           breakpoints={[0, 0.25, 0.5, 0.75]}
           handleBehavior="cycle"
         >
-          <IonContent className="ion-padding">
+          <IonContent className="ion-padding" color={'light'}>
             <div className="ion-margin-top">
               <h1>Login</h1>
               <IonItem>
@@ -57,9 +66,15 @@ const Splash: React.FC<{ setLogin: (type:boolean) => void }> = ({ setLogin }) =>
                   type="password"
                 ></IonInput>
               </IonItem>
-              <IonButton onClick={onPress}>Login</IonButton>
-              <IonButton>Facebook</IonButton>
-              <IonButton>Google</IonButton>
+              <IonButton expand='block' onClick={onPress}>Login</IonButton>
+              <IonButton expand='block' onClick={onPress} className={styles['facebook-button']}>
+                <IonIcon src='/assets/icons/logo-facebook.svg' slot="start" />
+                Continue with Facebook
+              </IonButton>
+              <IonButton expand='block' onClick={onPress} className={styles['google-button']}>
+                <IonIcon src='/assets/icons/logo-google.svg' slot="start" />
+                Continue with Google
+              </IonButton>
             </div>
           </IonContent>
         </IonModal>

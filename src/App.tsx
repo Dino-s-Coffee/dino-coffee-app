@@ -2,9 +2,6 @@ import {
   IonApp,
   setupIonicReact
 } from '@ionic/react';
-import { useState } from 'react';
-
-import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,26 +21,26 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
 import Navbar from './components/Navbar';
 import Splash from './components/Splash';
 
+import { selectUser } from './features/user/userSlice'
+import { useAppSelector } from './app/hooks';
+
 setupIonicReact({
-  // rippleEffect: false,
-  // mode: 'md',
+  mode: 'ios',
 });
 
 const App: React.FC = () => {
-  const [login, setLogin] = useState<boolean>(false);
+  const user = useAppSelector(selectUser);
   return (
     <IonApp>
       {
-        login ? (
-          <IonReactRouter>
-            <Navbar />
-          </IonReactRouter>
-        ) : (
-          <Splash setLogin={setLogin}/>
-        )
+        user.isLoggedIn ?
+          <Navbar />
+          :
+          <Splash />
       }
     </IonApp>
   );

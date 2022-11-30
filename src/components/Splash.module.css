@@ -23,3 +23,11 @@
     align-items: center;
     justify-content: space-around;
 }
+.facebook-button {
+    --background: #1877f2;
+    --color: #fff;
+}
+.google-button {
+    --background: #FFFFFF;
+    --color: #000000;
+}

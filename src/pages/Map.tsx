@@ -1,35 +1,23 @@
-import { IonButton, IonContent, IonIcon, IonPage, useIonViewDidEnter } from '@ionic/react';
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import {
+  IonButton,
+  IonContent,
+  IonIcon,
+  IonPage,
+  useIonViewDidEnter,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+} from '@ionic/react';
+import { navigateOutline, menuOutline, mapOutline } from 'ionicons/icons';
 import { Geolocation } from '@capacitor/geolocation';
 import { useState } from 'react';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
-import { navigateOutline } from 'ionicons/icons';
 import L from 'leaflet';
 import styles from './Map.module.css';
 
 L.Icon.Default.imagePath = '/assets/imgs/leaflet/';
 const zoomDefault = 13;
-const GoToMyLocation:
-  React.FC<{ setPosition: (position: { lat: number, lng: number }) => void }> =
-  ({ setPosition }) => {
-    const map = useMap();
-    if (!map) return null;
-    function goToMyLocation() {
-      Geolocation.getCurrentPosition().then((location) => {
-        const position = {
-          lat: location.coords.latitude,
-          lng: location.coords.longitude
-        }
-        setPosition(position);
-        map.flyTo(position, zoomDefault);
-      })
-    }
-    return (
-      <IonButton onClick={goToMyLocation} className={styles.myLocationButton}>
-        <IonIcon icon={navigateOutline} />
-      </IonButton>
-    )
-  }
 
 const makers = [
   { lat: 10.76, lng: 106.68 },
@@ -52,8 +40,28 @@ const redIcon = L.icon({
   shadowSize: [41, 41]
 });
 
-const Map: React.FC = () => {
+const GoToMyLocation: React.FC = () => {
+  const map = useMap();
+  if (!map) return null;
+  function goToMyLocation() {
+    Geolocation.getCurrentPosition().then((location) => {
+      const position = {
+        lat: location.coords.latitude,
+        lng: location.coords.longitude
+      }
+      map.flyTo(position, zoomDefault);
+    })
+  }
+  return (
+    <IonButton onClick={goToMyLocation} className={styles.myLocationButton}>
+      <IonIcon icon={navigateOutline} />
+    </IonButton>
+  )
+}
+
+const MapView: React.FC = () => {
   const [position, setPosition] = useState<null | { lat: number, lng: number }>(null);
+
   useIonViewDidEnter(() => {
     window.dispatchEvent(new Event('resize'));
   });
@@ -65,44 +73,61 @@ const Map: React.FC = () => {
         lng: location.coords.longitude
       })
     })
+    return <p>Loading...</p>
   }
+  return (
+    <MapContainer
+      center={position}
+      zoom={zoomDefault}
+      scrollWheelZoom={true}
+      style={{ height: '100%' }}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      {
+        makers.map((maker, index) => {
+          return (
+            <Marker position={maker} key={index}>
+              <Popup>
+                Dino's Coffee
+              </Popup>
+            </Marker>
+          )
+        })
+      }
+      <Marker position={position} icon={redIcon} >
+        <Popup>
+          You are here
+        </Popup>
+      </Marker>
+      <GoToMyLocation />
+    </MapContainer>
+  )
+}
+
+
+const Map: React.FC = () => {
+  const [viewMap, setViewMap] = useState(true);
 
 
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Map</IonTitle>
+          <IonButton slot="end" fill="clear" onClick={() => setViewMap(!viewMap)}>
+            <IonIcon slot="icon-only" icon={viewMap ? menuOutline : mapOutline} />
+          </IonButton>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent >
         {
-          position ?
-            <MapContainer
-              center={position}
-              zoom={zoomDefault}
-              scrollWheelZoom={true}
-              style={{ height: '100%' }}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              {
-                makers.map((maker, index) => {
-                  return (
-                    <Marker position={maker} key={index}>
-                      <Popup>
-                        Dino's Coffee
-                      </Popup>
-                    </Marker>
-                  )
-                })
-              }
-              <Marker position={position} icon={redIcon} >
-                <Popup>
-                  You are here
-                </Popup>
-              </Marker>
-              <GoToMyLocation setPosition={setPosition} />
-            </MapContainer>
+          viewMap ?
+            <MapView />
             :
-            <p>Loading...</p>
+            <p>List of shops</p>
         }
       </IonContent>
     </IonPage>
