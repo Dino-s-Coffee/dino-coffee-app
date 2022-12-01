@@ -12,9 +12,7 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
-  IonList,
   IonItem,
-  IonInput,
   IonLabel,
   IonRadioGroup,
   IonRadio,
@@ -25,7 +23,7 @@ import { RouteComponentProps } from 'react-router';
 import { heart as heartFill, heartOutline } from 'ionicons/icons';
 import { fetchProductById } from '../api/product';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { addProduct, removeProduct, selectCart } from '../../features/cart/cartSlice';
+import { addProduct } from '../../features/cart/cartSlice';
 import { toggleProduct, selectFavorite, checkFavorite } from '../../features/favorite/favoriteSlice';
 // import styles from './Cart.module.css';
 
@@ -33,9 +31,7 @@ interface ProductDetailPageProps extends RouteComponentProps<{ id: string }> { }
 
 const ProductDetail: React.FC<ProductDetailPageProps> = ({ match }) => {
   const dispatch = useAppDispatch();
-  const cart = useAppSelector(selectCart);
   const [product, setProduct] = useState<Product>();
-  const [isInCart, setIsInCart] = useState(false);
   const [isReadMore, setIsReadMore] = useState(true);
 
   const productId = match.params.id;
@@ -63,9 +59,13 @@ const ProductDetail: React.FC<ProductDetailPageProps> = ({ match }) => {
         <IonToolbar>
           <IonButtons slot='start'><IonBackButton /></IonButtons>
           {product && <IonTitle>{product.name}</IonTitle>}
-          <IonButton slot='end' fill="clear" onClick={toggleFavorite}>
-            <IonIcon slot="icon-only" icon={isFavorite ? heartFill : heartOutline} />
-          </IonButton>
+          <IonIcon
+            slot='end'
+            color='primary'
+            size='large'
+            onClick={toggleFavorite}
+            icon={isFavorite ? heartFill : heartOutline}
+          />
         </IonToolbar>
       </IonHeader>
       <IonContent className='ion-padding' >

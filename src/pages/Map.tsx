@@ -18,6 +18,15 @@ import styles from './Map.module.css';
 
 L.Icon.Default.imagePath = '/assets/imgs/leaflet/';
 const zoomDefault = 13;
+const positionDefault = { lat: 10.76, lng: 106.68 };
+
+const redIcon = L.icon({
+  iconUrl: '/assets/imgs/leaflet/red-marker-icon.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
 
 const makers = [
   { lat: 10.76, lng: 106.68 },
@@ -32,15 +41,8 @@ const makers = [
   { lat: 10.78, lng: 106.64 },
 ]
 
-const redIcon = L.icon({
-  iconUrl: '/assets/imgs/leaflet/red-marker-icon.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
 const GoToMyLocation: React.FC = () => {
+  const [position, setPosition] = useState<any>(null);
   const map = useMap();
   if (!map) return null;
   function goToMyLocation() {
@@ -50,37 +52,36 @@ const GoToMyLocation: React.FC = () => {
         lng: location.coords.longitude
       }
       map.flyTo(position, zoomDefault);
+      setPosition(position);
     })
   }
   return (
-    <IonButton onClick={goToMyLocation} className={styles.myLocationButton}>
-      <IonIcon icon={navigateOutline} />
-    </IonButton>
+    <>
+      {
+        position &&
+        <Marker position={position} icon={redIcon} >
+          <Popup>
+            You are here
+          </Popup>
+        </Marker>
+      }
+      <IonButton onClick={goToMyLocation} className={styles.myLocationButton}>
+        <IonIcon icon={navigateOutline} />
+      </IonButton>
+    </>
   )
 }
 
 const MapView: React.FC = () => {
-  const [position, setPosition] = useState<null | { lat: number, lng: number }>(null);
-
   useIonViewDidEnter(() => {
     window.dispatchEvent(new Event('resize'));
   });
-
-  if (!position) {
-    Geolocation.getCurrentPosition().then((location) => {
-      setPosition({
-        lat: location.coords.latitude,
-        lng: location.coords.longitude
-      })
-    })
-    return <p>Loading...</p>
-  }
   return (
     <MapContainer
-      center={position}
+      center={positionDefault}
       zoom={zoomDefault}
-      scrollWheelZoom={true}
-      style={{ height: '100%' }}
+      scrollWheelZoom
+      style={{ height: '100%', width: '100%' }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -97,11 +98,6 @@ const MapView: React.FC = () => {
           )
         })
       }
-      <Marker position={position} icon={redIcon} >
-        <Popup>
-          You are here
-        </Popup>
-      </Marker>
       <GoToMyLocation />
     </MapContainer>
   )

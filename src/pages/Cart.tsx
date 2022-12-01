@@ -16,7 +16,7 @@ import {
   selectCart,
 } from '../features/cart/cartSlice';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import ProductCard from '../components/ProductCard';
+import CartCard from '../components/CartCard';
 
 const Cart: React.FC = () => {
   const cart = useAppSelector(selectCart);
@@ -29,22 +29,29 @@ const Cart: React.FC = () => {
       </IonHeader>
       <IonContent >
         {
-          cart.items.map((item, index) => {
-            return (
-              <ProductCard
-                key={index}
-                product={item.product}
-              // quantity={item.quantity}
-              />
-            )
-          })
+          cart.items.length === 0 ? (
+            <IonText className="ion-text-center">
+              <p>No product in cart</p>
+            </IonText>
+          ) : (
+            <>
+              {cart.items.map((item, index) => {
+                return (
+                  <CartCard
+                    key={index}
+                    product={item.product}
+                  />
+                )
+              })}
+            </>
+          )
         }
-        
+
       </IonContent>
       <IonFooter>
-        <IonToolbar>
-          <IonText className='ion-margin-start' slot='start'>{`Total Price: ${cart.total}`}</IonText>
-          <IonButton slot='end'>Check out<IonIcon icon={chevronForwardOutline}/></IonButton>
+        <IonToolbar className='ion-padding-start ion-padding-end'>
+          <IonText slot='start'>{`Total Price: ${cart.total}`}</IonText>
+          <IonButton slot='end'>Check out<IonIcon icon={chevronForwardOutline} /></IonButton>
         </IonToolbar>
       </IonFooter>
     </IonPage>

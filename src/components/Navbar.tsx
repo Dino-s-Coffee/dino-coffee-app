@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
       <IonTabs onIonTabsDidChange={(e) => setSelectedTab(e.detail.tab)}>
         <IonRouterOutlet>
           {tabs.map((tab) => (
-            <Route key={tab.name} path={`/${tab.name.toLowerCase()}`} component={tab.component} exact={true} />
+            <Route key={tab.name} exact path={`/${tab.name.toLowerCase()}`} component={tab.component} />
           ))}
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route path="/product/detail/:id" component={ProductDetail} />

@@ -42,7 +42,9 @@ const Home: React.FC = () => {
             ?
             foundProducts.map((product, index) => <ProductCard key={index} product={product} />)
             :
-            <IonText style={{textAlign: 'center'}}>No product found</IonText>
+            <IonText className="ion-text-center">
+              <p>Found no products</p>
+            </IonText>
         }
       </IonContent>
     </IonPage>

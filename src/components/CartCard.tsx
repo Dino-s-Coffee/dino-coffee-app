@@ -8,11 +8,14 @@ import {
   IonIcon,
   IonCol,
   IonGrid,
-  IonRow
+  IonRow,
+  IonText,
+  IonTitle,
+  IonButton
 } from '@ionic/react';
-import { heart as heartFill, heartOutline } from 'ionicons/icons';
-import { toggleProduct, selectFavorite, checkFavorite } from '../features/favorite/favoriteSlice';
+import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { addProduct, removeProduct, selectCart } from '../features/cart/cartSlice';
 
 interface ProductItemProps {
   product: Product
@@ -20,17 +23,22 @@ interface ProductItemProps {
 
 const ProductCard: React.FC<ProductItemProps> = ({ product }) => {
   const dispatch = useAppDispatch();
-  const favorite = useAppSelector(selectFavorite);
-  const isFavorite = checkFavorite(favorite.products, product.id);
+  const cart = useAppSelector(selectCart);
+  const quantity = cart.items.find(item => item.product.id === product.id)?.quantity || 0;
 
-  function toggleFavorite(e: any) {
+  function addButton(e: any) {
     e.stopPropagation()
     e.preventDefault();
-    dispatch(toggleProduct(product));
+    dispatch(addProduct(product));
+  }
+  function removeButton(e: any) {
+    e.stopPropagation()
+    e.preventDefault();
+    dispatch(removeProduct(product));
   }
 
   return (
-    <IonCard button routerLink={`/product/detail/${product.id}`} color='light' >
+    <IonCard color='light' button>
       <IonGrid>
         <IonRow>
           <IonCol size="4">
@@ -44,11 +52,20 @@ const ProductCard: React.FC<ProductItemProps> = ({ product }) => {
             <IonCardContent>
               <IonToolbar color='light'>
                 <IonIcon
+                  style={{ zIndex: 1 }}
                   color='primary'
                   size='large'
-                  onClick={toggleFavorite}
+                  slot="start"
+                  onClick={removeButton}
+                  icon={quantity === 1 ? trashOutline : removeOutline}
+                />
+                <IonTitle className='ion-no-padding'><span>{quantity}</span></IonTitle>
+                <IonIcon
+                  color='primary'
+                  size='large'
                   slot="end"
-                  icon={isFavorite ? heartFill : heartOutline}
+                  onClick={addButton}
+                  icon={addOutline}
                 />
               </IonToolbar>
             </IonCardContent>

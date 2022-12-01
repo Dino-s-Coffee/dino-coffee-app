@@ -4,6 +4,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonText,
 } from '@ionic/react';
 
 import { useAppSelector } from '../app/hooks';
@@ -14,7 +15,9 @@ const Content: React.FC = () => {
   const favorite = useAppSelector(selectFavorite);
   if (favorite.products.length === 0) {
     return (
-      <p>No favorite product</p>
+      <IonText className="ion-text-center">
+        <p>No product in favorite</p>
+      </IonText>
     )
   }
   return (
