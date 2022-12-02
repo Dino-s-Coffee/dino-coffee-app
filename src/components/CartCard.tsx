@@ -9,9 +9,7 @@ import {
   IonCol,
   IonGrid,
   IonRow,
-  IonText,
   IonTitle,
-  IonButton
 } from '@ionic/react';
 import { addOutline, removeOutline, trashOutline } from 'ionicons/icons';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
@@ -47,7 +45,7 @@ const ProductCard: React.FC<ProductItemProps> = ({ product }) => {
           <IonCol size="8">
             <IonCardHeader>
               <IonCardTitle>{product.name}</IonCardTitle>
-              <IonCardSubtitle>{product.price}</IonCardSubtitle>
+              <IonCardSubtitle>{product.basePrice}</IonCardSubtitle>
             </IonCardHeader>
             <IonCardContent>
               <IonToolbar color='light'>

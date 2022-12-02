@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonText } from '@ionic/react';
 
 const Profile: React.FC = () => {
   const configs = [
@@ -15,18 +15,18 @@ const Profile: React.FC = () => {
           <IonTitle>Profile</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent >
+      <IonContent>
+        <IonText>Dark Mode</IonText>
         {
           configs.map((config, index) => {
             return (
-              // <IonButton>
-                <IonItem button detail>
-                  {config}
-                </IonItem>
-              // </IonButton>
+              <IonItem key={index} button detail>
+                {config}
+              </IonItem>
             )
           })
         }
+
       </IonContent>
     </IonPage>
   );

@@ -107,15 +107,18 @@ const MapView: React.FC = () => {
 const Map: React.FC = () => {
   const [viewMap, setViewMap] = useState(true);
 
-
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Map</IonTitle>
-          <IonButton slot="end" fill="clear" onClick={() => setViewMap(!viewMap)}>
-            <IonIcon slot="icon-only" icon={viewMap ? menuOutline : mapOutline} />
-          </IonButton>
+          <IonIcon
+            slot="end"
+            color='primary'
+            size='large'
+            onClick={() => setViewMap(!viewMap)}
+            icon={viewMap ? menuOutline : mapOutline}
+          />
         </IonToolbar>
       </IonHeader>
       <IonContent >

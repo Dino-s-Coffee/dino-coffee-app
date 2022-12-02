@@ -28,6 +28,7 @@ import Map from '../pages/Map';
 import Cart from '../pages/Cart';
 import Profile from '../pages/Profile';
 import ProductDetail from '../pages/Product/Detail';
+import Checkout from '../pages/CheckOut';
 
 function Tab(name: string, iconOutline: string, iconFill: string, component: React.FC) {
   return {
@@ -58,6 +59,7 @@ const Navbar: React.FC = () => {
           ))}
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route path="/product/detail/:id" component={ProductDetail} />
+          <Route path="/checkout" component={Checkout} />
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">

@@ -1,12 +1,23 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+@font-face {
+  font-family: Raleway;
+  src: url('../../public/assets/fonts/Raleway/Raleway-VariableFont_wght.ttf');
+}
+@font-face {
+  font-family: Lustria;
+  src: url('../../public/assets/fonts/Lustria/Lustria-Regular.ttf');
+}
 /** Ionic CSS Variables **/
 :root {
+  /* font */
+  --ion-font-family: 'Raleway'; 
+
   /** primary **/
   --ion-color-primary: #DFB35A;
   --ion-color-primary-rgb: 223, 179, 90;
-  --ion-color-primary-contrast: #000000;
+  --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 0, 0, 0;
   --ion-color-primary-shade: #c49e4f;
   --ion-color-primary-tint: #e2bb6b;

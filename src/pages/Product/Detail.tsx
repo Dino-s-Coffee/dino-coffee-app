@@ -25,7 +25,6 @@ import { fetchProductById } from '../api/product';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addProduct } from '../../features/cart/cartSlice';
 import { toggleProduct, selectFavorite, checkFavorite } from '../../features/favorite/favoriteSlice';
-// import styles from './Cart.module.css';
 
 interface ProductDetailPageProps extends RouteComponentProps<{ id: string }> { }
 
@@ -75,11 +74,11 @@ const ProductDetail: React.FC<ProductDetailPageProps> = ({ match }) => {
             <img src={product.image} alt={product.name} />
             <IonCardHeader>
               <IonCardTitle>{product.name}</IonCardTitle>
-              <IonCardSubtitle>{product.price}</IonCardSubtitle>
+              <IonCardSubtitle>{product.basePrice}</IonCardSubtitle>
             </IonCardHeader>
-            <IonCardContent>
+            <IonCardContent onClick={() => setIsReadMore(!isReadMore)}>
               {isReadMore ? product.description.slice(0, 80) + '...' : product.description}
-              <a onClick={() => setIsReadMore(!isReadMore)}>{isReadMore ? 'read more' : <p>show less</p>}</a>
+              <IonText color='primary'>{isReadMore ? 'read more' : <p>show less</p>}</IonText>
             </IonCardContent>
           </>
         }
@@ -94,7 +93,7 @@ const ProductDetail: React.FC<ProductDetailPageProps> = ({ match }) => {
                 <IonItem key={size}>
                   <IonRadio slot="start" value={size} />
                   <IonLabel>{size}</IonLabel>
-                  <IonText slot="end">{product.price}</IonText>
+                  <IonText slot="end">{product.basePrice}</IonText>
                 </IonItem>
               ))}
             </IonRadioGroup>

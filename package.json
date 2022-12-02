@@ -12,7 +12,9 @@
     "@capacitor/haptics": "4.1.0",
     "@capacitor/keyboard": "4.1.0",
     "@capacitor/preferences": "^4.0.2",
+    "@capacitor/splash-screen": "^4.1.2",
     "@capacitor/status-bar": "4.1.0",
+    "@hookform/resolvers": "^2.9.10",
     "@ionic/pwa-elements": "^3.1.1",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
@@ -27,6 +29,7 @@
     "@types/react-redux": "^7.1.24",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "classnames": "^2.3.2",
     "history": "^4.9.0",
     "ionicons": "^6.0.3",
     "leaflet": "^1.9.3",
@@ -52,7 +55,8 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4"
+    "workbox-streams": "^5.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

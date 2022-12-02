@@ -10,12 +10,8 @@ import {
   IonIcon
 } from '@ionic/react';
 import { chevronForwardOutline } from 'ionicons/icons'
-import {
-  addProduct,
-  removeProduct,
-  selectCart,
-} from '../features/cart/cartSlice';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { selectCart } from '../features/cart/cartSlice';
+import { useAppSelector } from '../app/hooks';
 import CartCard from '../components/CartCard';
 
 const Cart: React.FC = () => {
@@ -51,7 +47,7 @@ const Cart: React.FC = () => {
       <IonFooter>
         <IonToolbar className='ion-padding-start ion-padding-end'>
           <IonText slot='start'>{`Total Price: ${cart.total}`}</IonText>
-          <IonButton slot='end'>Check out<IonIcon icon={chevronForwardOutline} /></IonButton>
+          <IonButton slot='end' routerLink='/checkout'>Check out<IonIcon icon={chevronForwardOutline} /></IonButton>
         </IonToolbar>
       </IonFooter>
     </IonPage>
