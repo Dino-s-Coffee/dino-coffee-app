@@ -16,7 +16,7 @@ const Profile: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonText>Dark Mode</IonText>
+        {/* <IonText>Dark Mode</IonText> */}
         {
           configs.map((config, index) => {
             return (
