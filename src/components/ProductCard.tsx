@@ -8,7 +8,8 @@ import {
   IonIcon,
   IonCol,
   IonGrid,
-  IonRow
+  IonRow,
+  useIonToast,
 } from '@ionic/react';
 import { heart as heartFill, heartOutline } from 'ionicons/icons';
 import { toggleProduct, selectFavorite, checkFavorite } from '../features/favorite/favoriteSlice';
@@ -22,8 +23,15 @@ const ProductCard: React.FC<ProductItemProps> = ({ product }) => {
   const dispatch = useAppDispatch();
   const favorite = useAppSelector(selectFavorite);
   const isFavorite = checkFavorite(favorite.products, product.id);
+  const [present] = useIonToast();
 
   function toggleFavorite(e: any) {
+    present({
+      message: isFavorite ? 'Removed from favorites' : 'Added to favorites',
+      duration: 1500,
+      color: isFavorite ? 'danger' : 'success',
+      position: 'top',
+    });
     e.stopPropagation()
     e.preventDefault();
     dispatch(toggleProduct(product));

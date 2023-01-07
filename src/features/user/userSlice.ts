@@ -3,7 +3,6 @@ import type { RootState } from '../../app/store'
 import { Preferences } from '@capacitor/preferences';
 
 
-
 const fetchUserLocalData = createAsyncThunk(
     'user/fetchUserLocalData',
     async () => {

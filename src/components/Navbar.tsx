@@ -15,11 +15,13 @@ import {
   cartOutline,
   mapOutline,
   personOutline,
+  gameControllerOutline,
   home as homeFill,
   heart as heartFill,
   cart as cartFill,
   map as mapFill,
-  person as personFill
+  person as personFill,
+  gameController as gameControllerFill
 } from 'ionicons/icons';
 
 import Home from '../pages/Home';
@@ -29,6 +31,7 @@ import Cart from '../pages/Cart';
 import Profile from '../pages/Profile';
 import ProductDetail from '../pages/Product/Detail';
 import Checkout from '../pages/CheckOut';
+import Game from '../pages/Game';
 
 function Tab(name: string, iconOutline: string, iconFill: string, component: React.FC) {
   return {
@@ -41,6 +44,7 @@ function Tab(name: string, iconOutline: string, iconFill: string, component: Rea
 
 const tabs: any[] = [
   Tab('Home', homeOutline, homeFill, Home),
+  Tab('Game', gameControllerOutline, gameControllerFill, Game),
   Tab('Favorite', heartOutline, heartFill, Favorite),
   Tab('Map', mapOutline, mapFill, Map),
   Tab('Cart', cartOutline, cartFill, Cart),
@@ -60,6 +64,7 @@ const Navbar: React.FC = () => {
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route path="/product/detail/:id" component={ProductDetail} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/game" component={Game} />
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">
